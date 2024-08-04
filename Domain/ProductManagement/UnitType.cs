@@ -1,4 +1,4 @@
-namespace OOPCafeInventory
+namespace OOPCafeInventory.Domain.ProductManagement
 {
     public enum UnitType
     {
