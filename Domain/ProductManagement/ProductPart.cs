@@ -2,6 +2,16 @@ namespace OOPCafeInventory.Domain.ProductManagement;
 
 public partial class Product
 {
+    public static int StockThreshold = 10;
+
+    public static void ChangeStockThreshold(int newStockThreshold)
+    {
+        if (newStockThreshold > 0)
+        {
+            StockThreshold = newStockThreshold;
+        }
+    }
+
     private object CreateSimpleProductRepresentation()
     {
         return $"Product {id}  ({name})";
@@ -12,13 +22,13 @@ public partial class Product
         Console.WriteLine(message);
     }
 
-    private void UpdateLowStock()
+    public void UpdateLowStock()
     {
-        if (AmountInStock < 10)
+        if (AmountInStock < StockThreshold)
         {
             IsBelowStockThreshold = true;
         }
-        else if (AmountInStock > 10)
+        else if (AmountInStock > StockThreshold)
         {
             IsBelowStockThreshold = false;
         }
