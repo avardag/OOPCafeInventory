@@ -5,7 +5,7 @@ namespace OOPCafeInventory;
 
 internal class ProductRepository
 {
-    private string directory = @"/home/avardag/Progr/dotnet/OOPCafeInventory/";
+    private string directory = @"/home/avardag/Progr/dotnet/OOPCafe/OOPCafeInventory/";
     private string productsFileName = "products.txt";
 
     private void CheckForExistingProductFile()

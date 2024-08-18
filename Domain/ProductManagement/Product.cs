@@ -118,7 +118,7 @@ public partial class Product
         UpdateLowStock();
     }
 
-    public void DecreaseStock(int items, string reason)
+    protected void DecreaseStock(int items, string reason)
     {
         if (items <= AmountInStock)
         {

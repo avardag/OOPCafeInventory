@@ -41,6 +41,20 @@ internal class Utilities
         /*     ) */
         /* ); */
 
+        BoxedProduct bp =
+            new(
+                6,
+                "Oreo",
+                "Lorem Ipsum",
+                new Price() { ItemPrice = 10, Currency = Currency.Euro },
+                UnitType.PerBox,
+                100,
+                6
+            );
+        bp.IncreaseStock(100);
+        bp.UseProduct(10);
+        //       bp.DecreaseStock(10, "Test");//cant use private or protected methods
+
         //use inventory from file instead
         ProductRepository productRepository = new();
         inventory = productRepository.LoadProductsFromFile();
