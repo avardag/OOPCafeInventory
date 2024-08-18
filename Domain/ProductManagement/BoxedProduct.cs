@@ -21,7 +21,7 @@ public class BoxedProduct : Product
         AmountPerBox = amountPerBox;
     }
 
-    public string DisplayBoxedProductDetails()
+    public override string DisplayDetailsfull()
     {
         StringBuilder sb = new StringBuilder();
 
@@ -37,7 +37,7 @@ public class BoxedProduct : Product
         return sb.ToString();
     }
 
-    public void UseBoxedProduct(int items)
+    public override void UseProduct(int items)
     {
         int smallestMultiple = 0;
         int batchSize;
@@ -51,7 +51,49 @@ public class BoxedProduct : Product
                 break;
             }
         }
+        base.UseProduct(items);
+    }
 
-        UseProduct(batchSize); //using base classes method
+    /* public void UseBoxedProduct(int items) */
+    /* { */
+    /*     int smallestMultiple = 0; */
+    /*     int batchSize; */
+    /**/
+    /*     while (true) */
+    /*     { */
+    /*         smallestMultiple++; */
+    /*         if (smallestMultiple * AmountPerBox > items) */
+    /*         { */
+    /*             batchSize = smallestMultiple * AmountPerBox; */
+    /*             break; */
+    /*         } */
+    /*     } */
+    /**/
+    /*     UseProduct(batchSize); //using base classes method */
+    /* } */
+
+    public override void IncreaseStock()
+    {
+        /* AmountInStock += AmountPerBox; */
+        IncreaseStock(1);
+    }
+
+    public override void IncreaseStock(int amount)
+    {
+        //it is possible to call the bade here too, but we are assuming that this is handled differently
+        int newStock = AmountInStock + amount * AmountPerBox;
+
+        if (newStock <= maxItemsInStock)
+        {
+            AmountInStock += amount * AmountPerBox;
+        }
+        else
+        {
+            AmountInStock = maxItemsInStock; //we only store the possible items, overstock is not stored
+            Log(
+                $"{CreateSimpleProductRepresentation()} stock overflow. {newStock - AmountInStock} items ordered that couldn't be stored."
+            );
+        }
+        UpdateLowStock();
     }
 }

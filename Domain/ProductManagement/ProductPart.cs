@@ -12,12 +12,12 @@ public partial class Product
         }
     }
 
-    private object CreateSimpleProductRepresentation()
+    protected object CreateSimpleProductRepresentation()
     {
         return $"Product {id}  ({name})";
     }
 
-    private void Log(string message)
+    protected void Log(string message)
     {
         Console.WriteLine(message);
     }

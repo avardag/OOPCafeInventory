@@ -15,8 +15,8 @@ public class FreshBoxedProduct : BoxedProduct
     )
         : base(id, name, description, price, unitType, maxAmountInStock, amountPerBox) { }
 
-    public void UseFreshBoxedProduct(int items)
-    {
-        UseBoxedProduct(3); //sample invocation
-    }
+    /* public void UseFreshBoxedProduct(int items) */
+    /* { */
+    /*     UseBoxedProduct(3); //sample invocation */
+    /* } */
 }

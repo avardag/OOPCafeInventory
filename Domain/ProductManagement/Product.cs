@@ -9,7 +9,7 @@ public partial class Product
     private string name = string.Empty;
     private string? description;
 
-    private int maxItemsInStock = 0;
+    protected int maxItemsInStock = 0;
 
     //use Properties instead
     /* private UnitType unitType; */
@@ -45,7 +45,7 @@ public partial class Product
     }
 
     public UnitType UnitType { get; set; }
-    public int AmountInStock { get; private set; }
+    public int AmountInStock { get; protected set; }
     public bool IsBelowStockThreshold { get; private set; }
 
     public Price Price { get; set; }
@@ -77,7 +77,7 @@ public partial class Product
         UpdateLowStock();
     }
 
-    public void UseProduct(int items)
+    public virtual void UseProduct(int items)
     {
         if (items <= AmountInStock)
         {
@@ -96,12 +96,12 @@ public partial class Product
         }
     }
 
-    public void IncreaseStock()
+    public virtual void IncreaseStock()
     {
         AmountInStock++;
     }
 
-    public void IncreaseStock(int amount)
+    public virtual void IncreaseStock(int amount)
     {
         int newStock = AmountInStock + amount;
         if (newStock <= maxItemsInStock)
@@ -118,7 +118,7 @@ public partial class Product
         UpdateLowStock();
     }
 
-    protected void DecreaseStock(int items, string reason)
+    protected virtual void DecreaseStock(int items, string reason)
     {
         if (items <= AmountInStock)
         {
@@ -134,17 +134,17 @@ public partial class Product
         Log(reason);
     }
 
-    public string DisplayDetailsShort()
+    public virtual string DisplayDetailsShort()
     {
         return $"{id}. {name} \n{AmountInStock} items in stock";
     }
 
-    public string DisplayDetailsfull()
+    public virtual string DisplayDetailsfull()
     {
         return DisplayDetailsfull("");
     }
 
-    public string DisplayDetailsfull(string extraDetails)
+    public virtual string DisplayDetailsfull(string extraDetails)
     {
         StringBuilder sb = new();
         //Todo: add price here too;
