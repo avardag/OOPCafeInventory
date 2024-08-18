@@ -1,9 +1,10 @@
 using System.Text;
+using OOPCafeInventory.Domain.Contracts;
 using OOPCafeInventory.Domain.General;
 
 namespace OOPCafeInventory.Domain.ProductManagement;
 
-public partial class Product
+public partial class Product : ISaveable, ICloneable
 {
     private int id;
     private string name = string.Empty;
@@ -157,5 +158,22 @@ public partial class Product
             sb.Append("\n!!STOCK LOW!!");
         }
         return sb.ToString();
+    }
+
+    public string ConvertToStringForSaving()
+    {
+        return $"{Id};{Name};{Description};{maxItemsInStock};{Price.ItemPrice};{(int)Price.Currency};{(int)UnitType};4;";
+    }
+
+    public virtual object Clone()
+    {
+        return new Product(
+            0,
+            this.Name,
+            this.Description,
+            new Price() { ItemPrice = this.Price.ItemPrice, Currency = this.Price.Currency },
+            this.UnitType,
+            this.maxItemsInStock
+        );
     }
 }

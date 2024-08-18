@@ -1,9 +1,10 @@
 using System.Text;
+using OOPCafeInventory.Domain.Contracts;
 using OOPCafeInventory.Domain.General;
 
 namespace OOPCafeInventory.Domain.ProductManagement;
 
-public class FreshProduct : Product
+public class FreshProduct : Product, ISaveable
 {
     public FreshProduct(
         int id,
@@ -34,5 +35,10 @@ public class FreshProduct : Product
         sb.AppendLine("Storage instructions: " + StorageInstructions); //since this line needs to go here , we can't call the base here
         sb.AppendLine("Expiry date: " + ExpiryDateTime.ToShortDateString());
         return sb.ToString();
+    }
+
+    public string ConvertToStringForSaving()
+    {
+        return $"{Id};{Name};{Description};{maxItemsInStock};{Price.ItemPrice};{(int)Price.Currency};{(int)UnitType};2;";
     }
 }

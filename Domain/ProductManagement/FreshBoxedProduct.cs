@@ -9,11 +9,10 @@ public class FreshBoxedProduct : BoxedProduct
         string name,
         string? description,
         Price price,
-        UnitType unitType,
         int maxAmountInStock,
         int amountPerBox
     )
-        : base(id, name, description, price, unitType, maxAmountInStock, amountPerBox) { }
+        : base(id, name, description, price, maxAmountInStock, amountPerBox) { }
 
     /* public void UseFreshBoxedProduct(int items) */
     /* { */

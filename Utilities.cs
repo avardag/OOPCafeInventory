@@ -47,7 +47,6 @@ internal class Utilities
                 "Oreo",
                 "Lorem Ipsum",
                 new Price() { ItemPrice = 10, Currency = Currency.Euro },
-                UnitType.PerBox,
                 100,
                 6
             );
@@ -146,7 +145,7 @@ internal class Utilities
                     break;
 
                 case "3":
-                    //ShowCloneExistingProduct();
+                    ShowCloneExistingProduct();
                     break;
 
                 case "4":
@@ -224,7 +223,6 @@ internal class Utilities
                     name,
                     description,
                     new Price() { ItemPrice = price, Currency = currency },
-                    unitType,
                     maxInStock
                 );
                 break;
@@ -251,7 +249,6 @@ internal class Utilities
                     name,
                     description,
                     new Price() { ItemPrice = price, Currency = currency },
-                    unitType,
                     maxInStock,
                     numberInBox
                 );
@@ -288,6 +285,41 @@ internal class Utilities
         {
             Console.WriteLine($"{i}. {name}");
             i++;
+        }
+    }
+
+    private static void ShowCloneExistingProduct()
+    {
+        string? userSelection = string.Empty;
+        string? newId = string.Empty;
+
+        Console.Write("Enter the ID of product to clone: ");
+        string? selectedProductId = Console.ReadLine();
+
+        if (selectedProductId != null)
+        {
+            Product? selectedProduct = inventory
+                .Where(p => p.Id == int.Parse(selectedProductId))
+                .FirstOrDefault();
+
+            if (selectedProduct != null)
+            {
+                Console.Write("Enter the new ID of the cloned product: ");
+
+                newId = Console.ReadLine();
+
+                Product? p = selectedProduct.Clone() as Product;
+
+                if (p != null)
+                {
+                    p.Id = int.Parse(newId);
+                    inventory.Add(p);
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Non-existing product selected. Please try again.");
         }
     }
 

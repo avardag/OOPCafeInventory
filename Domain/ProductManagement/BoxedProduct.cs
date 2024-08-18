@@ -1,9 +1,10 @@
 using System.Text;
+using OOPCafeInventory.Domain.Contracts;
 using OOPCafeInventory.Domain.General;
 
 namespace OOPCafeInventory.Domain.ProductManagement;
 
-public class BoxedProduct : Product
+public class BoxedProduct : Product, ISaveable, ILogable
 {
     public int AmountPerBox { get; set; }
 
@@ -12,7 +13,6 @@ public class BoxedProduct : Product
         string name,
         string? description,
         Price price,
-        UnitType unitType,
         int maxAmountInStock,
         int amountPerBox
     )
@@ -95,5 +95,27 @@ public class BoxedProduct : Product
             );
         }
         UpdateLowStock();
+    }
+
+    public string ConvertToStringForSaving()
+    {
+        return $"{Id};{Name};{Description};{maxItemsInStock};{Price.ItemPrice};{(int)Price.Currency};{(int)UnitType};1;{AmountPerBox};";
+    }
+
+    void ILogable.Log(string message)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override object Clone()
+    {
+        return new BoxedProduct(
+            0,
+            this.Name,
+            this.Description,
+            new Price() { ItemPrice = this.Price.ItemPrice, Currency = this.Price.Currency },
+            this.maxItemsInStock,
+            this.AmountPerBox
+        );
     }
 }
